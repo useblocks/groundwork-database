@@ -408,6 +408,38 @@
          result="composite2"
          id="feComposite4671" />
     </filter>
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Drop Shadow"
+       id="filter4661-8">
+      <feFlood
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood4663-3" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="out"
+         result="composite1"
+         id="feComposite4665-7" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="0.3"
+         result="blur"
+         id="feGaussianBlur4667-9" />
+      <feOffset
+         dx="0.5"
+         dy="0.5"
+         result="offset"
+         id="feOffset4669-3" />
+      <feComposite
+         in="offset"
+         in2="SourceGraphic"
+         operator="atop"
+         result="composite2"
+         id="feComposite4671-7" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -416,15 +448,15 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8527341"
-     inkscape:cx="-80.691235"
-     inkscape:cy="70.416042"
+     inkscape:zoom="1.4263671"
+     inkscape:cx="127.03591"
+     inkscape:cy="72.39458"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      units="px"
-     inkscape:window-width="2560"
-     inkscape:window-height="1381"
+     inkscape:window-width="1920"
+     inkscape:window-height="1141"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -437,7 +469,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -456,10 +488,11 @@
     <ellipse
        style="display:inline;opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#333333;stroke-width:13.90806293;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter5416)"
        id="path5946"
-       cx="72.417778"
+       cx="72.417786"
        cy="979.68549"
        rx="60.457001"
-       ry="62.353447" />
+       ry="62.353447"
+       transform="matrix(-0.96592583,0.25881905,0.25881905,0.96592583,-111.19327,14.638871)" />
     <ellipse
        style="opacity:1;fill:#918a6f;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:2.7100966;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path6166"
@@ -469,7 +502,7 @@
        ry="55.448963" />
     <g
        id="g3510"
-       transform="matrix(1.8350855,0,0,1.8350855,42.099803,937.91062)"
+       transform="matrix(1.8350855,0,0,1.8350855,43.145919,931.43192)"
        style="fill:#ffcc00;fill-opacity:1;filter:url(#filter4637)">
       <g
          id="g3463"
@@ -555,12 +588,25 @@
        y="1023.5075"
        id="text4333"
        sodipodi:linespacing="125%"
-       transform="matrix(0.7608606,0,0,0.7608606,17.292569,241.5205)"><tspan
+       transform="matrix(0.7608606,0,0,0.7608606,19.988331,243.73429)"><tspan
          sodipodi:role="line"
          id="tspan4335"
          x="44.049988"
          y="1023.5075"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:27.69375038px;line-height:125%;font-family:Loma;-inkscape-font-specification:'Loma, Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#ffcc00;fill-opacity:1">SQL</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:27.69396973px;line-height:125%;font-family:Lato;-inkscape-font-specification:'Lato, Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#ffcc00;fill-opacity:1">SQL</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:27.69309235px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter4661-8)"
+       x="44.049988"
+       y="1023.5075"
+       id="text4333-8"
+       sodipodi:linespacing="125%"
+       transform="matrix(0.4244897,0,0,0.4244897,22.56926,568.96268)"><tspan
+         sodipodi:role="line"
+         id="tspan4335-7"
+         x="44.049988"
+         y="1023.5075"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:27.69396973px;line-height:125%;font-family:Lato;-inkscape-font-specification:'Lato, Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#ffcc00;fill-opacity:1">groundwork</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
