@@ -1,3 +1,25 @@
+.. image:: https://img.shields.io/pypi/l/groundwork-sql.svg
+   :target: https://pypi.python.org/pypi/groundwork-sql
+   :alt: License
+.. image:: https://img.shields.io/pypi/pyversions/groundwork-sql.svg
+   :target: https://pypi.python.org/pypi/groundwork-sqö
+   :alt: Supported versions
+.. image:: https://readthedocs.org/projects/groundwork-sql/badge/?version=latest
+   :target: https://readthedocs.org/projects/groundwork-sql/
+.. image:: https://travis-ci.org/useblocks/groundwork-sql.svg?branch=master
+   :target: https://travis-ci.org/useblocks/groundwork-sql
+   :alt: Travis-CI Build Status
+.. image:: https://coveralls.io/repos/github/useblocks/groundwork-sql/badge.svg?branch=master
+   :target: https://coveralls.io/github/useblocks/groundwork-sql?branch=master
+.. image:: https://img.shields.io/scrutinizer/g/useblocks/groundwork-sql.svg
+   :target: https://scrutinizer-ci.com/g/useblocks/groundwork-sql/
+   :alt: Code quality
+.. image:: https://img.shields.io/pypi/v/groundwork-sql.svg
+   :target: https://pypi.python.org/pypi/groundwork-sql
+   :alt: PyPI Package latest release
+
+
+
 .. _groundwork: https://groundwork.readthedocs.io
 
 Welcome to groundwork-sql
@@ -26,21 +48,40 @@ The main features are:
 Quickstart
 ==========
 
-To use groundwork-sql inside a groundwork plugin, simply integrated it as followed::
+To use groundwork-sql inside a groundwork plugin, simply integrate it as followed::
 
     from groundwork import App
-    from groundwork_sql.patterns import GwSql
+    from groundwork_sql.patterns import GwSqlPattern
 
-    class MyPlugin(GwSql):
-        def _init_(self, *args, **kwargs):
+    class MyPlugin(GwSqlPattern):
+        def _init_(self, app, *args, **kwargs):
             self.name = "My Plugin"
-            super().__init__(*args, **kwargs)
+            super().__init__(app, *args, **kwargs)
 
         def activate(self):
-            self.db.models.register(MyModel)
+            db = self.databases.register("my_db", "sqlite:///:memory:", "My personal test database")
+            User = _get_user_class(db.Base)
+            my_user = User(name="Me")
+            db.add(my_user)
+            db.commit()
+
+        def print_user(name):
+            user = db.query(User).filter_by(name=name).first()
+            if user is not None:
+                print(user.name)
+            else:
+                print("User %s not found." % name)
+
+        def _get_user_class(base):
+            class User(base):
+                id = Column(Integer, primary_key=True)
+                name = Column(String)
+            return User
 
 
     if __name__ == "__main__":
-        my_app = App(plugins=[MyPlugin])
-        my_app.plugins.activate(["My Plugin"])
+        my_app = App()
+        my_plugin = MyPlugin(my_app)
+        my_plugin.activate()
+        my_plugin.print_user("me")
 

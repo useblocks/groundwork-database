@@ -7,7 +7,10 @@ class GwSqlPlugin(GwCommandsPattern):
         super().__init__(*args, **kwargs)
 
     def activate(self):
-        self.commands.register("hello_world", "Prints hello world", self._hello)
+        self.commands.register("database_list", "List all databases", self._list_db)
 
-    def _hello(self):
-        print("Hello World. It's me, gwsql_plugin!")
+    def _list_db(self):
+        print("Registered databases")
+        databases = self.app.databases.get()
+        for key, db in databases.items():
+            print("  %s\n  %s\n  %s\n" % (db.name, db.description, db.url))

@@ -7,23 +7,25 @@ import re
 import ast
 
 _version_re = re.compile(r'__version__\s+=\s+(.*)')
-with open('groundwork_sql/version.py', 'rb') as f:
+version_file = 'groundwork_sql/version.py'
+
+with open(version_file, 'rb') as f:
     version = str(ast.literal_eval(_version_re.search(
         f.read().decode('utf-8')).group(1)))
 
 setup(
     name='groundwork-sql',
     version=version,
-    url='http://gwsql.readthedocs.org',
+    url='http://groundwork-sql.readthedocs.org',
     license='MIT license',
-    author='groundwork-sql',
+    author='useblocks',
     author_email='info@useblocks.com',
     description="Package for hosting groundwork apps and plugins like gwsql_app or gwsql_plugin.",
     long_description=__doc__,
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
     include_package_data=True,
     platforms='any',
-    setup_requires=['pytest-runner', 'sphinx', 'gitpython'],
+    setup_requires=['groundwork', 'sqlalchemy', 'sphinx', 'gitpython'],
     tests_require=['pytest', 'pytest-flake8'],
     install_requires=[],
     classifiers=[
@@ -38,8 +40,6 @@ setup(
         'Programming Language :: Python :: 3.5',
     ],
     entry_points={
-        'console_scripts': ["gwsql = "
-                            "groundwork_sql.applications.gwsql_app:start_app"],
         'groundwork.plugin': ["groundwork_sql = "
                               "groundwork_sql.plugins.gwsql_plugin:"
                               "GwSqlPlugin"],
