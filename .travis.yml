@@ -1,10 +1,19 @@
 os:
 - linux
-language: python
-python:
-- '3.4'
-- '3.5'
 install:
 - pip install tox-travis
 - python setup.py install
 script: tox
+language: python
+python:
+- '3.4'
+- '3.5'
+deploy:
+  provider: pypi
+  distributions: sdist bdist_wheel
+  user: danwos
+  password:
+    secure: mZyU7MlFjlAA4A9DKbJESPuiUlOOafqHl023YA6hV+XWzeaAQJk2PEIsZfKIaGKWfiTctWfL3xfMbKeOpyoR/mjj6l3dn0vYFVkfn9T5zJ3+PkXoWpN786PcRXI8XxHYxasePT2n2OKK7WUUhM0UArjU3iO69qDffc/jgVmcbxXElPJbtheAj2g8j0ztSwsZlplLC4JmdKqu0P2gMyHdwEjy9ap7jTYtjChNyHNjaWUzYrWICX8iZymKoAQrthKZGRtXQdluZYPovOGUumPsZ6vQjP/TJq1Ul7fVuQw24+4Q5qRAPStxMdroN9B3EM6qGIrVP17Uu6C24BxscmqhgJaDCqgiXfx/83/9IpOBsfr9ozW+SAsDj4c5WA/Pg/vKm0/j//Ipw6NdWzLnS3pxR+NveNn+b1EZ9Cq6OkvjEuGOsEfNljgpCeinngP1G87qmp1OVRlzb0Y9HH05xkRLhNwmOK8MRdejNqGfeM5Z5c+h+WWJan4xYkqDkClU7FEA3rv8NNc8g3F+Dy/LKSmt5LUBM1IWRTRiObBDt9+qgiJC584IamcfSm7NGT7gEsEcps6ZTYuLxgLEHv0+KguhgDfDhFIs9VNwE7AlDGfHUL6VJ/UJHDcezUAMCBBHLxTR/RgsTW5KY60PgPJF/usIteBTiFQ++HsvcQdzx/tQV20=
+  on:
+    tags: true
+    branch: master

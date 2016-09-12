@@ -2,7 +2,7 @@
    :target: https://pypi.python.org/pypi/groundwork-sql
    :alt: License
 .. image:: https://img.shields.io/pypi/pyversions/groundwork-sql.svg
-   :target: https://pypi.python.org/pypi/groundwork-sqö
+   :target: https://pypi.python.org/pypi/groundwork-sql
    :alt: Supported versions
 .. image:: https://readthedocs.org/projects/groundwork-sql/badge/?version=latest
    :target: https://readthedocs.org/projects/groundwork-sql/
@@ -59,13 +59,18 @@ To use groundwork-sql inside a groundwork plugin, simply integrate it as followe
             super().__init__(app, *args, **kwargs)
 
         def activate(self):
-            db = self.databases.register("my_db", "sqlite:///:memory:", "My personal test database")
+            name = "my_db"
+            database_url = "sqlite:///:memory:"
+            description = "My personal test database"
+            db = self.databases.register(name, database_url, description)
+
             User = _get_user_class(db.Base)
             my_user = User(name="Me")
             db.add(my_user)
             db.commit()
 
         def print_user(name):
+            db = self.databases.get("my_db")
             user = db.query(User).filter_by(name=name).first()
             if user is not None:
                 print(user.name)
