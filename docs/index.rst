@@ -18,8 +18,6 @@
    :target: https://pypi.python.org/pypi/groundwork-database
    :alt: PyPI Package latest release
 
-
-
 .. _groundwork: https://groundwork.readthedocs.io
 
 Welcome to groundwork-database
