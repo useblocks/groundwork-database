@@ -171,7 +171,7 @@ if html_theme == 'gw':
 #
 html_theme_options = {
     "contribute": True,
-    "github_fork": "useblocks/groundwork-sql",
+    "github_fork": "useblocks/groundwork-database",
     "github_ribbon_color": "white_ffffff",
     "github_user": "useblocks",
 }

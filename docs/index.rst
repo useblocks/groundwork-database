@@ -42,8 +42,8 @@ The main features are:
 
 .. note::
 
-    groundwork-sql is based on `SQLAlchemy <http://www.sqlalchemy.org/>`_. All functions from SQLAlchemy are
-    available inside groundwork plugins, which are using groundwork-sql as pattern.
+    groundwork-database is based on `SQLAlchemy <http://www.sqlalchemy.org/>`_. All functions from SQLAlchemy are
+    available inside groundwork plugins, which are using groundwork-database as pattern.
 
 Quickstart
 ==========
