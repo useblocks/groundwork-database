@@ -52,8 +52,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'gwsql'
-copyright = u'2015 - {0}, groundwork-sql'.format(datetime.utcnow().year)
-author = 'groundwork-sql'
+copyright = u'2015 - {0}, team useblocks'.format(datetime.utcnow().year)
+author = 'team useblocks'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
