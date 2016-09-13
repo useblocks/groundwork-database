@@ -1,4 +1,4 @@
-from groundwork_sql.patterns import GwSqlPattern
+from groundwork_database.patterns import GwSqlPattern
 
 
 class DatabasePlugin(GwSqlPattern):

@@ -1,31 +1,31 @@
-.. image:: https://img.shields.io/pypi/l/groundwork-sql.svg
-   :target: https://pypi.python.org/pypi/groundwork-sql
+.. image:: https://img.shields.io/pypi/l/groundwork-database.svg
+   :target: https://pypi.python.org/pypi/groundwork-database
    :alt: License
-.. image:: https://img.shields.io/pypi/pyversions/groundwork-sql.svg
-   :target: https://pypi.python.org/pypi/groundwork-sql
+.. image:: https://img.shields.io/pypi/pyversions/groundwork-database.svg
+   :target: https://pypi.python.org/pypi/groundwork-database
    :alt: Supported versions
-.. image:: https://readthedocs.org/projects/groundwork-sql/badge/?version=latest
-   :target: https://readthedocs.org/projects/groundwork-sql/
-.. image:: https://travis-ci.org/useblocks/groundwork-sql.svg?branch=master
-   :target: https://travis-ci.org/useblocks/groundwork-sql
+.. image:: https://readthedocs.org/projects/groundwork-database/badge/?version=latest
+   :target: https://readthedocs.org/projects/groundwork-database/
+.. image:: https://travis-ci.org/useblocks/groundwork-database.svg?branch=master
+   :target: https://travis-ci.org/useblocks/groundwork-database
    :alt: Travis-CI Build Status
-.. image:: https://coveralls.io/repos/github/useblocks/groundwork-sql/badge.svg?branch=master
-   :target: https://coveralls.io/github/useblocks/groundwork-sql?branch=master
-.. image:: https://img.shields.io/scrutinizer/g/useblocks/groundwork-sql.svg
-   :target: https://scrutinizer-ci.com/g/useblocks/groundwork-sql/
+.. image:: https://coveralls.io/repos/github/useblocks/groundwork-database/badge.svg?branch=master
+   :target: https://coveralls.io/github/useblocks/groundwork-database?branch=master
+.. image:: https://img.shields.io/scrutinizer/g/useblocks/groundwork-database.svg
+   :target: https://scrutinizer-ci.com/g/useblocks/groundwork-database/
    :alt: Code quality
-.. image:: https://img.shields.io/pypi/v/groundwork-sql.svg
-   :target: https://pypi.python.org/pypi/groundwork-sql
+.. image:: https://img.shields.io/pypi/v/groundwork-database.svg
+   :target: https://pypi.python.org/pypi/groundwork-database
    :alt: PyPI Package latest release
 
 
 
 .. _groundwork: https://groundwork.readthedocs.io
 
-Welcome to groundwork-sql
-=========================
+Welcome to groundwork-database
+==============================
 
-groundwork-sql is a plugin for the application framework `groundwork`_.
+groundwork-database provides database management functions to applications based on the framework `groundwork`_.
 
 It provides a pattern for sql database support and a small console plugin to inspect those databases.
 
@@ -48,10 +48,10 @@ The main features are:
 Quickstart
 ==========
 
-To use groundwork-sql inside a groundwork plugin, simply integrate it as followed::
+To use groundwork-database inside a groundwork plugin, simply integrate it as followed::
 
     from groundwork import App
-    from groundwork_sql.patterns import GwSqlPattern
+    from groundwork_database.patterns import GwSqlPattern
 
     class MyPlugin(GwSqlPattern):
         def _init_(self, app, *args, **kwargs):

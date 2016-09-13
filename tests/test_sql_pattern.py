@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String
-from groundwork_sql.patterns import GwSqlPattern
+from groundwork_database.patterns import GwSqlPattern
 
 
 def test_plugin_init(basicApp):

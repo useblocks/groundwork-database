@@ -61,9 +61,9 @@ author = 'groundwork-sql'
 #
 # The short X.Y version.
 try:
-    release = pkg_resources.get_distribution('groundwork_sql').version
+    release = pkg_resources.get_distribution('groundwork_database').version
 except pkg_resources.DistributionNotFound:
-    print('gwsql must be installed to build the documentation.')
+    print('groundwork-database must be installed to build the documentation.')
     print('Install from source using `pip install -e .` in a virtualenv.')
     sys.exit(1)
 

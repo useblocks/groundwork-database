@@ -1,22 +1,22 @@
 """
-groundwork_sql
-==============
+groundwork-database
+===================
 """
 from setuptools import setup, find_packages
 import re
 import ast
 
 _version_re = re.compile(r'__version__\s+=\s+(.*)')
-version_file = 'groundwork_sql/version.py'
+version_file = 'groundwork_database/version.py'
 
 with open(version_file, 'rb') as f:
     version = str(ast.literal_eval(_version_re.search(
         f.read().decode('utf-8')).group(1)))
 
 setup(
-    name='groundwork-sql',
+    name='groundwork-database',
     version=version,
-    url='http://groundwork-sql.readthedocs.org',
+    url='http://groundwork-database.readthedocs.org',
     license='MIT license',
     author='useblocks',
     author_email='info@useblocks.com',
@@ -40,8 +40,8 @@ setup(
         'Programming Language :: Python :: 3.5',
     ],
     entry_points={
-        'groundwork.plugin': ["groundwork_sql = "
-                              "groundwork_sql.plugins.gwsql_plugin:"
-                              "GwSqlPlugin"],
+        'groundwork.plugin': ["groundwork_database = "
+                              "groundwork_database.plugins.gwsql_plugin:"
+                              "GwDatabasePlugin"],
     }
 )

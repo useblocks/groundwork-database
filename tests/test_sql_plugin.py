@@ -1,9 +1,9 @@
 from click.testing import CliRunner
-from groundwork_sql.plugins import GwSqlPlugin
+from groundwork_database.plugins import GwDatabasePlugin
 
 
 def test_plugin_init(basicApp):
-    plugin = GwSqlPlugin(basicApp)
+    plugin = GwDatabasePlugin(basicApp)
     plugin.activate()
 
     plugins = basicApp.plugins.get()
@@ -11,7 +11,7 @@ def test_plugin_init(basicApp):
 
 
 def test_plugin_list(basicApp):
-    plugin = GwSqlPlugin(basicApp)
+    plugin = GwDatabasePlugin(basicApp)
     plugin.activate()
 
     runner = CliRunner()

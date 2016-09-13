@@ -448,9 +448,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4263671"
-     inkscape:cx="127.03591"
-     inkscape:cy="72.39458"
+     inkscape:zoom="1.0085938"
+     inkscape:cx="238.15236"
+     inkscape:cy="60.409473"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -502,7 +502,7 @@
        ry="55.448963" />
     <g
        id="g3510"
-       transform="matrix(1.8350855,0,0,1.8350855,43.145919,931.43192)"
+       transform="matrix(1.6546412,0,0,1.5732156,46.084258,977.04584)"
        style="fill:#ffcc00;fill-opacity:1;filter:url(#filter4637)">
       <g
          id="g3463"
@@ -588,25 +588,26 @@
        y="1023.5075"
        id="text4333"
        sodipodi:linespacing="125%"
-       transform="matrix(0.7608606,0,0,0.7608606,19.988331,243.73429)"><tspan
+       transform="matrix(0.7608606,0,0,0.7608606,-2.4462863,190.80261)"
+       inkscape:transform-center-x="-36.806795"><tspan
          sodipodi:role="line"
          id="tspan4335"
          x="44.049988"
          y="1023.5075"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:27.69396973px;line-height:125%;font-family:Lato;-inkscape-font-specification:'Lato, Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#ffcc00;fill-opacity:1">SQL</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:26.28602409px;line-height:125%;font-family:Lato;-inkscape-font-specification:'Lato, Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#ffcc00;fill-opacity:1">Database</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:27.69309235px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter4661-8)"
+       style="font-style:normal;font-weight:normal;font-size:27.69309235px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#333333;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter4661-8)"
        x="44.049988"
        y="1023.5075"
        id="text4333-8"
        sodipodi:linespacing="125%"
-       transform="matrix(0.4244897,0,0,0.4244897,22.56926,568.96268)"><tspan
+       transform="matrix(0.4244897,0,0,0.4244897,22.186319,515.41498)"><tspan
          sodipodi:role="line"
          id="tspan4335-7"
          x="44.049988"
          y="1023.5075"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:27.69396973px;line-height:125%;font-family:Lato;-inkscape-font-specification:'Lato, Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#ffcc00;fill-opacity:1">groundwork</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:27.69396973px;line-height:125%;font-family:Lato;-inkscape-font-specification:'Lato, Bold';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#333333;fill-opacity:1">groundwork</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
