@@ -13,7 +13,7 @@ class GwSqlPattern(GwBasePattern):
     """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if not hasattr(self.app, "sql"):
+        if not hasattr(self.app, "databases"):
             self.app.databases = SqlDatabasesApplication(self.app)
 
         #: Instance of :class:`~.SqlDatabasesPlugin`.
@@ -35,7 +35,7 @@ class SqlDatabasesPlugin:
                                     function=self.__deactivate_sql_databases,
                                     description="Deactivates sql databases for %s" % self.plugin.name,
                                     sender=self.plugin)
-        self.log.debug("Plugin sql databases initialised")
+        self.log.debug("Pattern sql databases initialised")
 
     def __deactivate_sql_databases(self, plugin, *args, **kwargs):
         databases = self.get()
@@ -144,6 +144,8 @@ class Database:
 
         self.Base = declarative_base()
 
+        self.classes = DatabaseClass(self.Base)
+
     def create_all(self):
         return self.Base.metadata.create_all(self.engine)
 
@@ -166,5 +168,43 @@ class Database:
         return self.session.close(*args, **kwargs)
 
 
+class DatabaseClass:
+    def __init__(self, Base):
+        self._Base = Base
+        self._classes = {}
+
+    def register(self, clazz, name=None):
+        if name is None:
+            name = clazz.__name__
+
+        if name in self._classes.keys():
+            raise DatabaseClassExistException("Database class %s already registered")
+
+        # We need to "combine" the given user class with the Base class of our database.
+        # Normally the user class inherits from this Base class.
+        # But we need to do it dynamically and changing __bases__ of a class to add an inheritance does not work well.
+        # Therefore we create a new class, which inherits from both (user class and Base class).
+        # To not confusing developers during debug session, the new class gets the same name as the given user class.
+        TempClass = type(clazz.__name__, (clazz, self._Base), dict())
+        self._classes[name] = TempClass
+
+        if not hasattr(self, name):
+            setattr(self, name, self._classes[name])
+
+    def unregister(self, name):
+        return self._classes.pop(name, None)
+
+
+
+
+
+
+
+
+
 class DatabaseExistException(BaseException):
+    pass
+
+
+class DatabaseClassExistException(BaseException):
     pass

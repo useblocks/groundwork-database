@@ -116,3 +116,28 @@ def _create_user_class(Base):
         password = Column(String)
 
     return User
+
+
+def test_plugin_class_registration(basicApp, DatabasePlugin):
+    basicApp.plugins.classes.register([DatabasePlugin])
+    basicApp.plugins.activate(["DatabasePlugin"])
+    plugin = basicApp.plugins.get("DatabasePlugin")
+    db = plugin.databases.get("my_db")
+
+    assert hasattr(db, "classes") is True
+    db.classes.register(User)
+    assert hasattr(db.classes, "User") is True
+    db.create_all()
+
+    user = db.classes.User(name="test", fullname="Test Test", password="password")
+    db.add(user)
+    found_users = db.query(db.classes.User).filter_by(name="test").first()
+    assert found_users is not None
+
+
+class User(object):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    fullname = Column(String)
+    password = Column(String)

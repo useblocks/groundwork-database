@@ -1,1 +1,1 @@
-from .gwsql_plugin import GwDatabasePlugin
+from .gwdatabase_plugin import GwDatabasePlugin
