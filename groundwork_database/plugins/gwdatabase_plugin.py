@@ -13,4 +13,4 @@ class GwDatabasePlugin(GwCommandsPattern):
         print("Registered databases")
         databases = self.app.databases.get()
         for key, db in databases.items():
-            print("  %s\n  %s\n  %s\n" % (db.name, db.description, db.url))
+            print("  %s\n  %s\n  %s\n" % (db.name, db.description, db.database_url))

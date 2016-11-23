@@ -40,7 +40,7 @@ setup(
     ],
     entry_points={
         'groundwork.plugin': ["groundwork_database = "
-                              "groundwork_database.plugins.gwsql_plugin:"
+                              "groundwork_database.plugins.gwdatabase_plugin:"
                               "GwDatabasePlugin"],
     }
 )
