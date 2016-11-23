@@ -191,7 +191,7 @@ class DatabaseClass:
         if not hasattr(self, name):
             setattr(self, name, self._classes[name])
 
-            
+        return self._classes[name]
 
     def unregister(self, name):
         return self._classes.pop(name, None)
