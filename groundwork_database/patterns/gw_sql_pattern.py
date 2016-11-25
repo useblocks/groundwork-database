@@ -1,7 +1,7 @@
 import logging
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 from groundwork.patterns import GwBasePattern
@@ -139,10 +139,16 @@ class Database:
 
         self.engine = create_engine(url)
 
-        self._Session = sessionmaker(bind=self.engine)
-        self.session = self._Session()
-
+        self.session = scoped_session(sessionmaker(autocommit=False,
+                                                   autoflush=False,
+                                                   bind=self.engine))
         self.Base = declarative_base()
+
+        # This allows to perform Class.query (e.g. User.query), which is normally not
+        # available on pure sqlalchemy models. But this kind of usage is provided by libs like flask-sqlalachemy,
+        # what makes it very handy to query classes.
+        # Fore more visit: http://stackoverflow.com/a/28025843
+        self.Base.query = self.session.query_property()
 
         self.classes = DatabaseClass(self.Base)
 
@@ -185,16 +191,20 @@ class DatabaseClass:
         # But we need to do it dynamically and changing __bases__ of a class to add an inheritance does not work well.
         # Therefore we create a new class, which inherits from both (user class and Base class).
         # To not confusing developers during debug session, the new class gets the same name as the given user class.
-        TempClass = type(clazz.__name__, (clazz, self._Base), dict())
-        self._classes[name] = TempClass
-
-        if not hasattr(self, name):
-            setattr(self, name, self._classes[name])
+        # TempClass = type(clazz.__name__, (self._Base, clazz), dict())
+        # self._classes[name] = TempClass
+        self._classes[name] = clazz
 
         return self._classes[name]
 
     def unregister(self, name):
         return self._classes.pop(name, None)
+
+    def get(self, clazz_name=None):
+        if clazz_name is not None and clazz_name in self._classes.keys():
+            return self._classes[clazz_name]
+        else:
+            return None
 
 
 class DatabaseExistException(BaseException):
