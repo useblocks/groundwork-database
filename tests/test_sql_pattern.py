@@ -74,6 +74,8 @@ def test_plugin_db_session(basicApp, DatabasePlugin):
     basicApp.plugins.activate(["DatabasePlugin"])
     plugin = basicApp.plugins.get("DatabasePlugin")
     db = plugin.databases.get("my_db")
+    session = db.session
+    session.autoflush = True
 
     User = _create_user_class(db.Base)
     db.create_all()
@@ -83,28 +85,28 @@ def test_plugin_db_session(basicApp, DatabasePlugin):
     found_users = db.query(User).filter_by(name="test").first()
     assert found_users is None
 
-    db.add(user)
-    found_users = db.query(User).filter_by(name="test").first()
+    session.add(user)
+    found_users = session.query(User).filter_by(name="test").first()
     assert user is found_users
 
-    db.commit()
-    found_users2 = db.query(User).filter_by(name="test").first()
+    session.commit()
+    found_users2 = session.query(User).filter_by(name="test").first()
     assert user is found_users2
 
-    db.delete(user)
-    db.commit()
-    found_users2 = db.query(User).filter_by(name="test").first()
+    session.delete(user)
+    session.commit()
+    found_users2 = session.query(User).filter_by(name="test").first()
     assert found_users2 is None
 
     user2 = User(name="test2", fullname="Test Test", password="password")
-    db.add(user2)
-    found_users2 = db.query(User).filter_by(name="test2").first()
+    session.add(user2)
+    found_users2 = session.query(User).filter_by(name="test2").first()
     assert user2 is found_users2
-    db.rollback()
-    found_users2 = db.query(User).filter_by(name="test2").first()
+    session.rollback()
+    found_users2 = session.query(User).filter_by(name="test2").first()
     assert found_users2 is None
 
-    db.close()
+    session.close()
 
 
 def _create_user_class(Base):
@@ -123,15 +125,18 @@ def test_plugin_class_registration(basicApp, DatabasePlugin):
     basicApp.plugins.activate(["DatabasePlugin"])
     plugin = basicApp.plugins.get("DatabasePlugin")
     db = plugin.databases.get("my_db")
+    session = db.session
+    session.autoflush = True
+    User = _create_user_class(db.Base)
 
     assert hasattr(db, "classes") is True
     db.classes.register(User)
-    assert hasattr(db.classes, "User") is True
+    assert User == db.classes.get("User")
     db.create_all()
 
-    user = db.classes.User(name="test", fullname="Test Test", password="password")
-    db.add(user)
-    found_users = db.query(db.classes.User).filter_by(name="test").first()
+    user = User(name="test", fullname="Test Test", password="password")
+    session.add(user)
+    found_users = session.query(User).filter_by(name="test").first()
     assert found_users is not None
 
 

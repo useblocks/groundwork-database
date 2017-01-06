@@ -186,6 +186,9 @@ class DatabaseClass:
         if name in self._classes.keys():
             raise DatabaseClassExistException("Database class %s already registered")
 
+        # NOT LONGER USED
+        # But implementation may be a solution for upcoming problems, so we keep the following comments.
+        #
         # We need to "combine" the given user class with the Base class of our database.
         # Normally the user class inherits from this Base class.
         # But we need to do it dynamically and changing __bases__ of a class to add an inheritance does not work well.
@@ -193,6 +196,7 @@ class DatabaseClass:
         # To not confusing developers during debug session, the new class gets the same name as the given user class.
         # TempClass = type(clazz.__name__, (self._Base, clazz), dict())
         # self._classes[name] = TempClass
+
         self._classes[name] = clazz
 
         return self._classes[name]
