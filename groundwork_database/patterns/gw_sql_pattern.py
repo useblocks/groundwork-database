@@ -11,6 +11,7 @@ class GwSqlPattern(GwBasePattern):
     """
 
     """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if not hasattr(self.app, "databases"):
@@ -73,6 +74,14 @@ class SqlDatabasesApplication:
         self._databases = {}
         self.log.info("Application sql databases initialised")
 
+        self.app.signals.register("db_registered", self.app,
+                                  "Fired if a new database was registered by a plugin. "
+                                  "Provided arguments are: database and plugin")
+
+        self.app.signals.register("db_class_registered", self.app,
+                                  "Fired if a new database class was registered by a plugin "
+                                  "Provided arguments are: database, db_class and plugin")
+
     def register(self, database, database_url, description, plugin=None):
         """
         Registers a new sql database for a plugin.
@@ -84,6 +93,8 @@ class SqlDatabasesApplication:
         new_database = Database(database, database_url, description, plugin)
         self._databases[database] = new_database
         self.log.debug("Database registered: %s" % database)
+
+        self.app.signals.send("db_registered", database=new_database, plugin=plugin)
         return new_database
 
     def unregister(self, database):
@@ -94,7 +105,7 @@ class SqlDatabasesApplication:
         if database not in self._databases.keys():
             self.log.warning("Can not unregister database %s. Reason: Database does not exist." % database)
         else:
-            del(self._databases[database])
+            del (self._databases[database])
             self.log.debug("Database %s git unregistered" % database)
 
     def get(self, name=None, plugin=None):
@@ -150,7 +161,7 @@ class Database:
         # Fore more visit: http://stackoverflow.com/a/28025843
         self.Base.query = self.session.query_property()
 
-        self.classes = DatabaseClass(self.Base)
+        self.classes = DatabaseClass(self, self.plugin)
 
     def create_all(self):
         return self.Base.metadata.create_all(self.engine)
@@ -175,8 +186,10 @@ class Database:
 
 
 class DatabaseClass:
-    def __init__(self, Base):
-        self._Base = Base
+    def __init__(self, database, plugin):
+        self.database = database
+        self._Base = database.Base
+        self.plugin = plugin
         self._classes = {}
 
     def register(self, clazz, name=None):
@@ -198,6 +211,7 @@ class DatabaseClass:
         # self._classes[name] = TempClass
 
         self._classes[name] = clazz
+        self.plugin.signals.send("db_class_registered", database=self.database, db_class=clazz)
 
         return self._classes[name]
 
