@@ -12,8 +12,8 @@ class GwSqlPattern(GwBasePattern):
 
     """
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, app, **kwargs):
+        super(GwSqlPattern, self).__init__(app, **kwargs)
         if not hasattr(self.app, "databases"):
             self.app.databases = SqlDatabasesApplication(self.app)
 
