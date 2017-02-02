@@ -90,11 +90,18 @@ class SqlDatabasesApplication:
             raise DatabaseExistException("Database %s already registered by %s" % (
                 database, self._databases[database].plugin.name))
 
-        new_database = Database(database, database_url, description, plugin)
+        if plugin is None:
+            new_database = Database(database, database_url, description, app=self.app)
+        else:
+            new_database = Database(database, database_url, description, plugin=plugin)
+
         self._databases[database] = new_database
         self.log.debug("Database registered: %s" % database)
 
-        self.app.signals.send("db_registered", database=new_database, plugin=plugin)
+        if plugin is not None:
+            plugin.signals.send("db_registered", database=new_database)
+        else:
+            self.app.signals.send("db_registered", plugin=self.app, database=new_database)
         return new_database
 
     def unregister(self, database):
@@ -142,11 +149,12 @@ class SqlDatabasesApplication:
 
 
 class Database:
-    def __init__(self, name, url, description, plugin):
+    def __init__(self, name, url, description, plugin=None, app=None):
         self.name = name
         self.database_url = url
         self.description = description
         self.plugin = plugin
+        self.app = app
 
         self.engine = create_engine(url)
 
@@ -161,7 +169,7 @@ class Database:
         # Fore more visit: http://stackoverflow.com/a/28025843
         self.Base.query = self.session.query_property()
 
-        self.classes = DatabaseClass(self, self.plugin)
+        self.classes = DatabaseClass(self, self.plugin, self.app)
 
     def create_all(self):
         return self.Base.metadata.create_all(self.engine)
@@ -186,10 +194,11 @@ class Database:
 
 
 class DatabaseClass:
-    def __init__(self, database, plugin):
+    def __init__(self, database, plugin=None, app=None):
         self.database = database
         self._Base = database.Base
         self.plugin = plugin
+        self.app = app
         self._classes = {}
 
     def register(self, clazz, name=None):
@@ -211,7 +220,10 @@ class DatabaseClass:
         # self._classes[name] = TempClass
 
         self._classes[name] = clazz
-        self.plugin.signals.send("db_class_registered", database=self.database, db_class=clazz)
+        if self.plugin is not None:
+            self.plugin.signals.send("db_class_registered", database=self.database, db_class=clazz)
+        else:
+            self.app.signals.send("db_class_registered", database=self.database, db_class=clazz, plugin=self.app)
 
         return self._classes[name]
 
@@ -219,10 +231,12 @@ class DatabaseClass:
         return self._classes.pop(name, None)
 
     def get(self, clazz_name=None):
-        if clazz_name is not None and clazz_name in self._classes.keys():
+        if clazz_name is None:
+            return self._classes
+        elif clazz_name in self._classes.keys():
             return self._classes[clazz_name]
-        else:
-            return None
+
+        return None
 
 
 class DatabaseExistException(BaseException):
