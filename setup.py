@@ -28,15 +28,21 @@ setup(
     install_requires=['groundwork', 'sqlalchemy', 'sphinx', 'gitpython'],
     tests_require=['pytest', 'pytest-flake8'],
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Environment :: Console',
+        'Environment :: Web Environment',
+        'Environment :: Plugins',
+        'Topic :: Database',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
     ],
     entry_points={
         'groundwork.plugin': ["groundwork_database = "

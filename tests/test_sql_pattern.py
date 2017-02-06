@@ -27,7 +27,7 @@ def test_plugin_db_registration(basicApp):
     class MyPlugin(GwSqlPattern):
         def __init__(self, app, name=None, *args, **kwargs):
             self.name = name or self.__class__.__name__
-            super().__init__(app, *args, **kwargs)
+            super(MyPlugin, self).__init__(app, *args, **kwargs)
 
         def activate(self):
             self.databases.register("my_test_db", "sqlite:///:memory:", "my_test_database")
@@ -49,7 +49,7 @@ def test_plugin_db_activation(basicApp):
     class MyPlugin(GwSqlPattern):
         def __init__(self, app, name=None, *args, **kwargs):
             self.name = name or self.__class__.__name__
-            super().__init__(app, *args, **kwargs)
+            super(MyPlugin, self).__init__(app, *args, **kwargs)
 
         def activate(self):
             pass
