@@ -18,6 +18,7 @@ import os
 import sys
 import pkg_resources
 from datetime import datetime
+from __future__ import print_function
 # sys.path.insert(0, os.path.abspath('.'))
 sys.path.append(os.path.abspath('_themes'))
 
