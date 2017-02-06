@@ -32,7 +32,7 @@ setup(
         'Environment :: Console',
         'Environment :: Web Environment',
         'Environment :: Plugins',
-        'Topic :: Database'
+        'Topic :: Database',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
