@@ -1,8 +1,11 @@
 import logging
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.orm.attributes import InstrumentedAttribute
+
+from groundwork.docstring import parse
 
 from groundwork.patterns import GwBasePattern
 
@@ -201,7 +204,7 @@ class DatabaseClass:
         self.app = app
         self._classes = {}
 
-    def register(self, clazz, name=None):
+    def register(self, clazz, name=None, description=None):
         if name is None:
             name = clazz.__name__
 
@@ -219,7 +222,7 @@ class DatabaseClass:
         # TempClass = type(clazz.__name__, (self._Base, clazz), dict())
         # self._classes[name] = TempClass
 
-        self._classes[name] = clazz
+        self._classes[name] = DatabaseModel(clazz, self.database, self.plugin, self.app, description=description)
         if self.plugin is not None:
             self.plugin.signals.send("db_class_registered", database=self.database, db_class=clazz)
         else:
@@ -237,6 +240,43 @@ class DatabaseClass:
             return self._classes[clazz_name]
 
         return None
+    
+
+class DatabaseModel:
+    def __init__(self, clazz, database, plugin, app, description=None):
+        self.clazz = clazz
+        self.database = database
+        self.plugin = plugin
+        self.app = app
+    
+        self.description = description
+        self.arguments = {}
+        
+        parsed_doc = parse(clazz.__doc__)
+        if self.description is None:
+            if parsed_doc.short_description is not None:
+                self.description = parsed_doc.short_description
+            if parsed_doc.short_description is not None:
+                self.description += '\n'
+            if parsed_doc.long_description is not None:
+                self.description += parsed_doc.long_description
+            
+        self.parameters = {}
+        for parameter in parsed_doc.params:
+            self.parameters[parameter.arg_name] = {
+                'name': parameter.arg_name,
+                'description': parameter.description,
+                'type': parameter.type_name
+            }
+
+        for element_key in clazz.__dict__.keys():
+            element = getattr(clazz, element_key)
+            if isinstance(element, InstrumentedAttribute) and element.key not in self.parameters.keys():
+                self.parameters[element.key] = {
+                    'name': element.key,
+                    'description': '',
+                    'type': ''
+                }
 
 
 class DatabaseExistException(BaseException):

@@ -111,11 +111,32 @@ def test_plugin_db_session(basicApp, DatabasePlugin):
 
 def _create_user_class(Base):
     class User(Base):
+        """
+        User database model
+        
+        Stores all user related data
+        
+        :param id: Unique id of user. Used internally only.
+        :type id: Integer, primary_key
+        
+        :param name: user name of the user
+        :type name: String
+        
+        :param fullname: Fullname of the user
+        :type fullname: String
+        
+        :param password: Password of the user. Encrypted via xy.
+        :type password: String
+        
+        :return: Nothing to return
+        :rtype: None-Type
+        """
         __tablename__ = 'users'
         id = Column(Integer, primary_key=True)
         name = Column(String)
         fullname = Column(String)
         password = Column(String)
+        no_docstring = Column(String)
 
     return User
 
@@ -131,7 +152,7 @@ def test_plugin_class_registration(basicApp, DatabasePlugin):
 
     assert hasattr(db, "classes") is True
     db.classes.register(User)
-    assert User == db.classes.get("User")
+    assert User == db.classes.get("User").clazz
     db.create_all()
 
     user = User(name="test", fullname="Test Test", password="password")
