@@ -25,7 +25,7 @@ setup(
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
     include_package_data=True,
     platforms='any',
-    install_requires=['groundwork', 'sqlalchemy', 'docstring_parser'],
+    install_requires=['groundwork>=0.1.14', 'sqlalchemy', 'docstring_parser'],
     tests_require=['pytest', 'pytest-flake8'],
     classifiers=[
         'Development Status :: 4 - Beta',

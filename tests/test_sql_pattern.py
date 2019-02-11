@@ -113,21 +113,21 @@ def _create_user_class(Base):
     class User(Base):
         """
         User database model
-        
+
         Stores all user related data
-        
+
         :param id: Unique id of user. Used internally only.
         :type id: Integer, primary_key
-        
+
         :param name: user name of the user
         :type name: String
-        
+
         :param fullname: Fullname of the user
         :type fullname: String
-        
+
         :param password: Password of the user. Encrypted via xy.
         :type password: String
-        
+
         :return: Nothing to return
         :rtype: None-Type
         """

@@ -240,7 +240,7 @@ class DatabaseClass:
             return self._classes[clazz_name]
 
         return None
-    
+
 
 class DatabaseModel:
     def __init__(self, clazz, database, plugin, app, description=None):
@@ -248,10 +248,10 @@ class DatabaseModel:
         self.database = database
         self.plugin = plugin
         self.app = app
-    
+
         self.description = description
         self.arguments = {}
-        
+
         parsed_doc = parse(clazz.__doc__)
         if self.description is None:
             if parsed_doc.short_description is not None:
@@ -260,7 +260,7 @@ class DatabaseModel:
                 self.description += '\n'
             if parsed_doc.long_description is not None:
                 self.description += parsed_doc.long_description
-            
+
         self.parameters = {}
         for parameter in parsed_doc.params:
             self.parameters[parameter.arg_name] = {
